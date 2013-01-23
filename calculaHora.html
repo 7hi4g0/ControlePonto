@@ -9,12 +9,12 @@
 			var entrada = document.getElementById("entrada"),
 				almoco = document.getElementById("almoco"),
 				retorno = document.getElementById("retorno"),
-				saida = document.getElementById("saida"),
+				expediente = document.getElementById("expediente"),
 				horaEntrada,
 				horaAlmoco,
 				horaRetorno,
-				minutoSaida,
-				stringSaida;
+				minutoExpediente,
+				stringExpediente;
 
 			if (entrada.value.trim() === "" || almoco.value.trim() === "" || retorno.value.trim() === "") {
 				return true;
@@ -24,13 +24,12 @@
 			horaAlmoco = almoco.valueAsNumber / 60000;
 			horaRetorno = retorno.valueAsNumber / 60000;
 
-			minutoSaida = horaEntrada + horaRetorno - horaAlmoco;
-			minutoSaida += 8 * 60 + 45;
+			minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
+			minutoExpediente += 8 * 60 + 45;
 
-			stringSaida = ("00" + parseInt((minutoSaida / 60), 10)).slice(-2) + ":" + ("00" + (minutoSaida % 60)).slice(-2);
+			stringExpediente = ("00" + parseInt((minutoExpediente / 60), 10)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
 
-			saida.value = stringSaida;
-			console.log(stringSaida);
+			expediente.value = stringExpediente;
 		};
 
 		window.onload = function () {
@@ -54,8 +53,12 @@
 		<input id="retorno" type="time" />
 	</div>
 	<div>
+		<label>Expediente:</label>
+		<input id="expediente" type="time" disabled/>
+	</div>
+	<div>
 		<label>Saída:</label>
-		<input id="saida" type="time" disabled/>
+		<input id="saida" type="time" />
 	</div>
 </body>
 </html>
