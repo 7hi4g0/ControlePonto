@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+	<script type="text/javascript">
+		var atualiza = function () {
+			var entrada = document.getElementById("entrada"),
+				almoco = document.getElementById("almoco"),
+				retorno = document.getElementById("retorno"),
+				saida = document.getElementById("saida"),
+				horaEntrada,
+				horaAlmoco,
+				horaRetorno,
+				minutoSaida,
+				stringSaida;
+
+			if (entrada.value.trim() === "" || almoco.value.trim() === "" || retorno.value.trim() === "") {
+				return true;
+			}
+
+			horaEntrada = entrada.valueAsNumber / 60000;
+			horaAlmoco = almoco.valueAsNumber / 60000;
+			horaRetorno = retorno.valueAsNumber / 60000;
+
+			minutoSaida = horaEntrada + horaRetorno - horaAlmoco;
+			minutoSaida += 8 * 60 + 45;
+
+			stringSaida = ("00" + parseInt((minutoSaida / 60), 10)).slice(-2) + ":" + ("00" + (minutoSaida % 60)).slice(-2);
+
+			saida.value = stringSaida;
+			console.log(stringSaida);
+		};
+
+		window.onload = function () {
+			document.getElementById("entrada").onblur = atualiza;
+			document.getElementById("almoco").onblur = atualiza;
+			document.getElementById("retorno").onblur = atualiza;
+		};
+	</script>
+</head>
+<body>
+	<div>
+		<label>Entrada:</label>
+		<input id="entrada" type="time" />
+	</div>
+	<div>
+		<label>Almoço:</label>
+		<input id="almoco" type="time" />
+	</div>
+	<div>
+		<label>Retorno:</label>
+		<input id="retorno" type="time" />
+	</div>
+	<div>
+		<label>Saída:</label>
+		<input id="saida" type="time" disabled/>
+	</div>
+</body>
+</html>
