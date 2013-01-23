@@ -4,62 +4,31 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-	<script type="text/javascript">
-		var atualiza = function () {
-			var entrada = document.getElementById("entrada"),
-				almoco = document.getElementById("almoco"),
-				retorno = document.getElementById("retorno"),
-				expediente = document.getElementById("expediente"),
-				horaEntrada,
-				horaAlmoco,
-				horaRetorno,
-				minutoExpediente,
-				stringExpediente;
-
-			if (entrada.value.trim() === "" || almoco.value.trim() === "" || retorno.value.trim() === "") {
-				expediente.value = "";
-				return true;
-			}
-
-			horaEntrada = entrada.valueAsNumber / 60000;
-			horaAlmoco = almoco.valueAsNumber / 60000;
-			horaRetorno = retorno.valueAsNumber / 60000;
-
-			minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
-			minutoExpediente += 8 * 60 + 45;
-
-			stringExpediente = ("00" + parseInt((minutoExpediente / 60), 10)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
-
-			expediente.value = stringExpediente;
-		};
-
-		window.onload = function () {
-			document.getElementById("entrada").onblur = atualiza;
-			document.getElementById("almoco").onblur = atualiza;
-			document.getElementById("retorno").onblur = atualiza;
-		};
-	</script>
+	<link href="default.css" rel="stylesheet" type="text/css" />
+	<script src="calculaHora.js" type="text/javascript"></script>
 </head>
 <body>
-	<div>
-		<label>Entrada:</label>
-		<input id="entrada" type="time" />
-	</div>
-	<div>
-		<label>Almoço:</label>
-		<input id="almoco" type="time" />
-	</div>
-	<div>
-		<label>Retorno:</label>
-		<input id="retorno" type="time" />
-	</div>
-	<div>
-		<label>Expediente:</label>
-		<input id="expediente" type="time" disabled/>
-	</div>
-	<div>
-		<label>Saída:</label>
-		<input id="saida" type="time" />
+	<div class="calculaHora">
+		<div>
+			<label>Entrada:</label>
+			<input id="entrada" type="time" />
+		</div>
+		<div>
+			<label>Almoço:</label>
+			<input id="almoco" type="time" />
+		</div>
+		<div>
+			<label>Retorno:</label>
+			<input id="retorno" type="time" />
+		</div>
+		<div>
+			<label>Expediente:</label>
+			<input id="expediente" type="time" disabled/>
+		</div>
+		<div>
+			<label>Saída:</label>
+			<input id="saida" type="time" />
+		</div>
 	</div>
 </body>
 </html>
