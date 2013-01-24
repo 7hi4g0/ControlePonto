@@ -9,25 +9,31 @@
 </head>
 <body>
 	<div class="calculaHora">
-		<div>
-			<label>Entrada:</label>
-			<input id="entrada" type="time" />
+		<div class="horas">
+			<header>Horários:</header>
+			<div>
+				<label>Entrada:</label>
+				<input id="entrada" type="time" />
+			</div>
+			<div>
+				<label>Almoço:</label>
+				<input id="almoco" type="time" />
+			</div>
+			<div>
+				<label>Retorno:</label>
+				<input id="retorno" type="time" />
+			</div>
+			<div>
+				<label>Expediente:</label>
+				<input id="expediente" type="time" disabled/>
+			</div>
+			<div id="horaSaida">
+				<label>Saída:</label>
+				<input id="saida" type="time" />
+			</div>
 		</div>
-		<div>
-			<label>Almoço:</label>
-			<input id="almoco" type="time" />
-		</div>
-		<div>
-			<label>Retorno:</label>
-			<input id="retorno" type="time" />
-		</div>
-		<div>
-			<label>Expediente:</label>
-			<input id="expediente" type="time" disabled/>
-		</div>
-		<div>
-			<label>Saída:</label>
-			<input id="saida" type="time" />
+		<div id="mensagem">
+
 		</div>
 	</div>
 </body>

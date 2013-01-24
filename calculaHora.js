@@ -21,7 +21,7 @@
 	minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
 	minutoExpediente += 8 * 60 + 45;
 
-	stringExpediente = ("00" + parseInt((minutoExpediente / 60), 10)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
+	stringExpediente = ("00" + Math.floor(minutoExpediente / 60)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
 
 	expediente.value = stringExpediente;
 };
