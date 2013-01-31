@@ -1,16 +1,16 @@
 ﻿.calculaHora
 {
 	background-color: #f5f5f5;
+	display: -webkit-flex;
+	-webkit-align-items: flex-start;
 }
 
 	.calculaHora .horas
 	{
-		display: inline-block;
 		width: 160px;
 		padding: 5px;
 		margin: 5px;
 		border: 2px solid #b0b0b0;
-		vertical-align: top;
 	}
 
 		.calculaHora .horas header
@@ -37,7 +37,6 @@
 
 	.calculaHora #mensagem
 	{
-		display: inline-block;
 		width: 500px;
 		height: 300px;
 		padding: 5px;
