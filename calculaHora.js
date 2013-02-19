@@ -13,6 +13,9 @@
 		minutoExpediente,
 		stringExpediente;
 
+	// Salva o valor do horário que teve foi alterado
+	localStorage.setItem(this.id, this.value);
+
 	mensagem.innerHTML = "";
 
 	if (entrada.value.trim() === "" || almoco.value.trim() === "" || retorno.value.trim() === "") {
@@ -49,8 +52,27 @@
 };
 
 window.onload = function () {
-	document.getElementById("entrada").onblur = atualiza;
-	document.getElementById("almoco").onblur = atualiza;
-	document.getElementById("retorno").onblur = atualiza;
-	document.getElementById("saida").onblur = atualiza;
+	var entrada = document.getElementById("entrada"),
+		almoco = document.getElementById("almoco"),
+		retorno = document.getElementById("retorno"),
+		saida = document.getElementById("saida"),
+		tipoEvento = "blur",
+		evento;
+
+	entrada.addEventListener(tipoEvento, atualiza, false);
+	almoco.addEventListener(tipoEvento, atualiza, false);
+	retorno.addEventListener(tipoEvento, atualiza, false);
+	saida.addEventListener(tipoEvento, atualiza, false);
+
+	evento = new Event(tipoEvento);
+
+	// Recupera valores salvos caso existam
+	entrada.value = localStorage.getItem("entrada");
+	entrada.dispatchEvent(evento);
+	almoco.value = localStorage.getItem("almoco");
+	almoco.dispatchEvent(evento);
+	retorno.value = localStorage.getItem("retorno");
+	retorno.dispatchEvent(evento);
+	saida.value = localStorage.getItem("saida")
+	saida.dispatchEvent(evento);
 };
