@@ -1,9 +1,47 @@
 ﻿.calculaHora
 {
+	width: 900px;
 	background-color: #f5f5f5;
 	display: -webkit-flex;
-	-webkit-align-items: flex-start;
+	-webkit-flex-direction: column;
 }
+
+	.calculaHora header
+	{
+		background-color: #e0e0e0;
+		border: 2px solid #b0b0b0;
+	}
+
+		.calculaHora header h1
+		{
+			text-align: center;
+			font-size: 1.7em;
+			padding: 0.3em 0px;
+			margin: 0px;
+			color: rgb(96, 150, 15);
+			border-bottom: 2px solid #ebebeb;
+		}
+
+		.calculaHora header menu
+		{
+			padding: 5px;
+			margin: 0px;
+		}
+
+	.calculaHora .principal
+	{
+		display: -webkit-flex;
+		-webkit-align-items: flex-start;
+		-webkit-justify-content: center;
+	}
+
+	.calculaHora h2
+	{
+		text-align: center;
+		font-weight: bold;
+		font-size: 1.2em;
+		margin: 0px;
+	}
 
 	.calculaHora .horas
 	{
@@ -12,12 +50,6 @@
 		margin: 5px;
 		border: 2px solid #b0b0b0;
 	}
-
-		.calculaHora .horas header
-		{
-			text-align: center;
-			font-weight: bold;
-		}
 
 		.calculaHora .horas label
 		{

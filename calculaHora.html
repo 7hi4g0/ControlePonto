@@ -9,32 +9,41 @@
 </head>
 <body>
 	<div class="calculaHora">
-		<div class="horas">
-			<header>Horários:</header>
-			<div>
-				<label>Entrada:</label>
-				<input id="entrada" type="time" />
+		<header>
+			<h1>Controle de Ponto</h1>
+			<menu>
+				<label for="dia">Dia:</label>
+				<input id="dia" type="date" />
+			</menu>
+		</header>
+		<section class="principal">
+			<div class="horas">
+				<h2>Horários:</h2>
+				<div>
+					<label for="entrada">Entrada:</label>
+					<input id="entrada" type="time" />
+				</div>
+				<div>
+					<label for="almoco">Almoço:</label>
+					<input id="almoco" type="time" />
+				</div>
+				<div>
+					<label for="retorno">Retorno:</label>
+					<input id="retorno" type="time" />
+				</div>
+				<div>
+					<label for="expediente">Expediente:</label>
+					<input id="expediente" type="time" disabled/>
+				</div>
+				<div id="horaSaida">
+					<label for="saida">Saída:</label>
+					<input id="saida" type="time" />
+				</div>
 			</div>
-			<div>
-				<label>Almoço:</label>
-				<input id="almoco" type="time" />
-			</div>
-			<div>
-				<label>Retorno:</label>
-				<input id="retorno" type="time" />
-			</div>
-			<div>
-				<label>Expediente:</label>
-				<input id="expediente" type="time" disabled/>
-			</div>
-			<div id="horaSaida">
-				<label>Saída:</label>
-				<input id="saida" type="time" />
-			</div>
-		</div>
-		<div id="mensagem">
+			<div id="mensagem">
 
-		</div>
+			</div>
+		</section>
 	</div>
 </body>
 </html>

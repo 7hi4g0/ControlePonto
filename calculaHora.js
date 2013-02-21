@@ -56,8 +56,11 @@ window.onload = function () {
 		almoco = document.getElementById("almoco"),
 		retorno = document.getElementById("retorno"),
 		saida = document.getElementById("saida"),
+		dia = document.getElementById("dia"),
 		tipoEvento = "blur",
 		evento;
+
+	dia.valueAsDate = new Date();
 
 	entrada.addEventListener(tipoEvento, atualiza, false);
 	almoco.addEventListener(tipoEvento, atualiza, false);
