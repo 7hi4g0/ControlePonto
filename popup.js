@@ -24,6 +24,11 @@ var atualiza = function () {
 		return true;
 	}
 
+	if (carga.value.trim() === "") {
+		mensagem.innerHTML = "<h1>Bem vindo :-)</h1><span>Adicione um valor de carga diária para começar.</span>";
+		carga.focus();
+	}
+
 	horaEntrada = entrada.valueAsNumber / 60000;
 	horaAlmoco = almoco.valueAsNumber / 60000;
 	horaRetorno = retorno.valueAsNumber / 60000;
@@ -73,6 +78,7 @@ window.onload = function () {
 
 	// Recupera valores salvos caso existam
 	carga.value = localStorage.getItem("carga");
+	carga.dispatchEvent(evento);
 	entrada.value = localStorage.getItem("entrada");
 	entrada.dispatchEvent(evento);
 	almoco.value = localStorage.getItem("almoco");
