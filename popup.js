@@ -1,4 +1,4 @@
-﻿var atualiza = function () {
+var atualiza = function () {
 	var entrada = document.getElementById("entrada"),
 		almoco = document.getElementById("almoco"),
 		retorno = document.getElementById("retorno"),
