@@ -1,5 +1,6 @@
 var atualiza = function () {
-	var entrada = document.getElementById("entrada"),
+	var carga = document.getElementById("carga"),
+	    entrada = document.getElementById("entrada"),
 		almoco = document.getElementById("almoco"),
 		retorno = document.getElementById("retorno"),
 		expediente = document.getElementById("expediente"),
@@ -45,9 +46,9 @@ var atualiza = function () {
 	if (diferencaExpediente === 0) {
 		mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
 	} else if (diferencaExpediente > 0) {
-		mensagem.innerHTML = "<h1>Expediente extraordinário</h1><span>Huum! Você é muito trabalhadeiro.</span>";
+		mensagem.innerHTML = "<h1>Expediente extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas.</span>";
 	} else {
-		mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Vai trabalhar vagabundo!</span>";
+		mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.</span>";
 	}
 };
 
@@ -62,6 +63,7 @@ window.onload = function () {
 
 	dia.valueAsDate = new Date();
 
+	carga.addEventListener(tipoEvento, atualiza, false);
 	entrada.addEventListener(tipoEvento, atualiza, false);
 	almoco.addEventListener(tipoEvento, atualiza, false);
 	retorno.addEventListener(tipoEvento, atualiza, false);
@@ -70,12 +72,13 @@ window.onload = function () {
 	evento = new Event(tipoEvento);
 
 	// Recupera valores salvos caso existam
+	carga.value = localStorage.getItem("carga");
 	entrada.value = localStorage.getItem("entrada");
 	entrada.dispatchEvent(evento);
 	almoco.value = localStorage.getItem("almoco");
 	almoco.dispatchEvent(evento);
 	retorno.value = localStorage.getItem("retorno");
 	retorno.dispatchEvent(evento);
-	saida.value = localStorage.getItem("saida")
+	saida.value = localStorage.getItem("saida");
 	saida.dispatchEvent(evento);
 };
