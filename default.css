@@ -28,6 +28,11 @@
 			margin: 0px;
 		}
 
+			.calculaHora header menu button
+			{
+				float: right;
+			}
+
 	.calculaHora .principal
 	{
 		display: -webkit-flex;

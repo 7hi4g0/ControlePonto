@@ -1,12 +1,7 @@
-var atualiza = function () {
-	var carga = document.getElementById("carga"),
-	    entrada = document.getElementById("entrada"),
-		almoco = document.getElementById("almoco"),
-		retorno = document.getElementById("retorno"),
-		expediente = document.getElementById("expediente"),
-		saida = document.getElementById("saida"),
-		mensagem = document.getElementById("mensagem"),
-		horaCarga,
+var PONTO = {};
+
+PONTO.atualiza = function () {
+	var horaCarga,
 		horaEntrada,
 		horaAlmoco,
 		horaRetorno,
@@ -15,78 +10,152 @@ var atualiza = function () {
 		minutoExpediente,
 		stringExpediente;
 
-	// Salva o valor do horário que teve foi alterado
+	// Salva o valor do horário que foi alterado
 	localStorage.setItem(this.id, this.value);
 
-	mensagem.innerHTML = "";
+	PONTO.dom.mensagem.innerHTML = "";
 
-	if (entrada.value.trim() === "" || almoco.value.trim() === "" || retorno.value.trim() === "") {
-		expediente.value = "";
+	if (PONTO.dom.entrada.value.trim() === "" || PONTO.dom.almoco.value.trim() === "" || PONTO.dom.retorno.value.trim() === "") {
+		PONTO.dom.expediente.value = "";
 		return true;
 	}
 
-	if (carga.value.trim() === "") {
-		mensagem.innerHTML = "<h1>Bem vindo :-)</h1><span>Adicione um valor de carga diária para começar.</span>";
+	if (PONTO.dom.carga.value.trim() === "") {
+		PONTO.dom.mensagem.innerHTML = "<h1>Bem vindo :-)</h1><span>Adicione um valor de carga diária para começar.</span>";
 	} else {
 
-		horaCarga = carga.valueAsNumber / 60000;
-		horaEntrada = entrada.valueAsNumber / 60000;
-		horaAlmoco = almoco.valueAsNumber / 60000;
-		horaRetorno = retorno.valueAsNumber / 60000;
+		horaCarga = PONTO.dom.carga.valueAsNumber / 60000;
+		horaEntrada = PONTO.dom.entrada.valueAsNumber / 60000;
+		horaAlmoco = PONTO.dom.almoco.valueAsNumber / 60000;
+		horaRetorno = PONTO.dom.retorno.valueAsNumber / 60000;
 
 		minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
 		minutoExpediente += horaCarga;
 
 		stringExpediente = ("00" + Math.floor(minutoExpediente / 60)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
 
-		expediente.value = stringExpediente;
+		PONTO.dom.expediente.value = stringExpediente;
 
-		if (saida.value.trim() === "") {
+		if (PONTO.dom.saida.value.trim() === "") {
 			return true;
 		}
 
-		horaSaida = saida.valueAsNumber / 60000;
+		horaSaida = PONTO.dom.saida.valueAsNumber / 60000;
 
 		diferencaExpediente = horaSaida - minutoExpediente;
 
 		if (diferencaExpediente === 0) {
-			mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
+			PONTO.dom.mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
 		} else if (diferencaExpediente > 0) {
-			mensagem.innerHTML = "<h1>Regime extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas positivas.</span>";
+			PONTO.dom.mensagem.innerHTML = "<h1>Regime extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas positivas.</span>";
 		} else {
-			mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.<br/>Não acumule mais de 10 horas negativas no seu banco.</span>";
+			PONTO.dom.mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.<br/>Não acumule mais de 10 horas negativas no seu banco.</span>";
 		}
-	};
+	}
 };
 
-window.onload = function () {
-	var entrada = document.getElementById("entrada"),
-		almoco = document.getElementById("almoco"),
-		retorno = document.getElementById("retorno"),
-		saida = document.getElementById("saida"),
-		dia = document.getElementById("dia"),
-		tipoEvento = "blur",
+PONTO.init = function () {
+	var tipoEvento = "blur",
 		evento;
 
-	dia.valueAsDate = new Date();
+	PONTO.dom = {
+		carga: document.getElementById("carga"),
+		entrada: document.getElementById("entrada"),
+		almoco: document.getElementById("almoco"),
+		retorno: document.getElementById("retorno"),
+		expediente: document.getElementById("expediente"),
+		saida: document.getElementById("saida"),
+		dia: document.getElementById("dia"),
+		mensagem: document.getElementById("mensagem"),
+		salvar: document.getElementById("salvar"),
+	};
 
-	carga.addEventListener(tipoEvento, atualiza, false);
-	entrada.addEventListener(tipoEvento, atualiza, false);
-	almoco.addEventListener(tipoEvento, atualiza, false);
-	retorno.addEventListener(tipoEvento, atualiza, false);
-	saida.addEventListener(tipoEvento, atualiza, false);
+	PONTO.dom.dia.valueAsDate = new Date();
+
+	PONTO.dom.carga.addEventListener(tipoEvento, PONTO.atualiza, false);
+	PONTO.dom.entrada.addEventListener(tipoEvento, PONTO.atualiza, false);
+	PONTO.dom.almoco.addEventListener(tipoEvento, PONTO.atualiza, false);
+	PONTO.dom.retorno.addEventListener(tipoEvento, PONTO.atualiza, false);
+	PONTO.dom.saida.addEventListener(tipoEvento, PONTO.atualiza, false);
+
+	PONTO.dom.salvar.addEventListener("click", PONTO.salvar, false);
 
 	evento = new Event(tipoEvento);
 
 	// Recupera valores salvos caso existam
-	carga.value = localStorage.getItem("carga");
-	carga.dispatchEvent(evento);
-	entrada.value = localStorage.getItem("entrada");
-	entrada.dispatchEvent(evento);
-	almoco.value = localStorage.getItem("almoco");
-	almoco.dispatchEvent(evento);
-	retorno.value = localStorage.getItem("retorno");
-	retorno.dispatchEvent(evento);
-	saida.value = localStorage.getItem("saida");
-	saida.dispatchEvent(evento);
+	PONTO.dom.carga.value = localStorage.getItem("carga");
+	PONTO.dom.carga.dispatchEvent(evento);
+	PONTO.dom.entrada.value = localStorage.getItem("entrada");
+	PONTO.dom.entrada.dispatchEvent(evento);
+	PONTO.dom.almoco.value = localStorage.getItem("almoco");
+	PONTO.dom.almoco.dispatchEvent(evento);
+	PONTO.dom.retorno.value = localStorage.getItem("retorno");
+	PONTO.dom.retorno.dispatchEvent(evento);
+	PONTO.dom.saida.value = localStorage.getItem("saida");
+	PONTO.dom.saida.dispatchEvent(evento);
+
+	// Inicia o banco de dados
+	PONTO.db.init();
 };
+
+PONTO.erro = function (erro) {
+	console.log(erro.value);
+};
+
+PONTO.salvar = function () {
+	PONTO.db.salvar({
+		"dia": PONTO.dom.dia.valueAsDate,
+		"entrada": PONTO.dom.entrada.value,
+		"almoco": PONTO.dom.almoco.value,
+		"retorno": PONTO.dom.retorno.value,
+		"saida": PONTO.dom.saida.value,
+	});
+};
+
+PONTO.db = {
+	init: function () {
+		var versao = 1,
+			requisicao = indexedDB.open("regimes", versao);
+
+		requisicao.onupgradeneeded = function (evento) {
+			var db = evento.target.result;
+
+			evento.target.transaction.onerror = PONTO.erro;
+
+			if (db.objectStoreNames.contains("regime")) {
+				db.deleteObjectStore("regime");
+			}
+
+			db.createObjectStore("regime", {keyPath: "dia"});
+		};
+
+		requisicao.onsuccess = function (evento) {
+			PONTO.db.instancia = evento.target.result;
+		};
+
+		requisicao.onerror = PONTO.erro;
+	},
+	salvar: function (regime) {
+		var db = PONTO.db.instancia,
+			transacao,
+			armazanamento,
+			requisicao;
+
+		if (db === undefined) {
+			PONTO.erro({ value: "Sem banco de dados" });
+			return;
+		}
+
+		transacao = db.transaction(["regime"], "readwrite");
+		armazanamento = transacao.objectStore("regime");
+		requisicao = armazanamento.put(regime);
+
+		requisicao.onsuccess = function (evento) {
+			console.log("Salvo com sucesso!");
+		};
+
+		requisicao.onerror = PONTO.erro;
+	}
+};
+
+window.onload = PONTO.init;
