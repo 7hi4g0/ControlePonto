@@ -51,9 +51,9 @@ var atualiza = function () {
 	if (diferencaExpediente === 0) {
 		mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
 	} else if (diferencaExpediente > 0) {
-		mensagem.innerHTML = "<h1>Expediente extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas.</span>";
+		mensagem.innerHTML = "<h1>Regime extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas.</span>";
 	} else {
-		mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.</span>";
+		mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.<br/>Não acumule mais de 10 horas negativas no seu banco de horas.</span>";
 	}
 };
 
