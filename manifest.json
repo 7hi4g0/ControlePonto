@@ -1,7 +1,7 @@
 {
 	"name": "Ponto Flexível",
-	"description": "Aplicativo para calcular a hora da saída do trabalho para jornadas de trabalho flexíveis.",
-    "version": "0.0.1",
+	"description": "Aplicativo para calcular fim de expediente de trabalho para jornadas flexíveis.",
+    "version": "0.0.3",
     "permissions": [
     	"tabs", "contextMenus"
   	],

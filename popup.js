@@ -6,6 +6,7 @@ var atualiza = function () {
 		expediente = document.getElementById("expediente"),
 		saida = document.getElementById("saida"),
 		mensagem = document.getElementById("mensagem"),
+		horaCarga,
 		horaEntrada,
 		horaAlmoco,
 		horaRetorno,
@@ -26,35 +27,36 @@ var atualiza = function () {
 
 	if (carga.value.trim() === "") {
 		mensagem.innerHTML = "<h1>Bem vindo :-)</h1><span>Adicione um valor de carga diária para começar.</span>";
-		carga.focus();
-	}
-
-	horaEntrada = entrada.valueAsNumber / 60000;
-	horaAlmoco = almoco.valueAsNumber / 60000;
-	horaRetorno = retorno.valueAsNumber / 60000;
-
-	minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
-	minutoExpediente += 8 * 60 + 45;
-
-	stringExpediente = ("00" + Math.floor(minutoExpediente / 60)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
-
-	expediente.value = stringExpediente;
-
-	if (saida.value.trim() === "") {
-		return true;
-	}
-
-	horaSaida = saida.valueAsNumber / 60000;
-
-	diferencaExpediente = horaSaida - minutoExpediente;
-
-	if (diferencaExpediente === 0) {
-		mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
-	} else if (diferencaExpediente > 0) {
-		mensagem.innerHTML = "<h1>Regime extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas.</span>";
 	} else {
-		mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.<br/>Não acumule mais de 10 horas negativas no seu banco de horas.</span>";
-	}
+
+		horaCarga = carga.valueAsNumber / 60000;
+		horaEntrada = entrada.valueAsNumber / 60000;
+		horaAlmoco = almoco.valueAsNumber / 60000;
+		horaRetorno = retorno.valueAsNumber / 60000;
+
+		minutoExpediente = horaEntrada + horaRetorno - horaAlmoco;
+		minutoExpediente += horaCarga;
+
+		stringExpediente = ("00" + Math.floor(minutoExpediente / 60)).slice(-2) + ":" + ("00" + (minutoExpediente % 60)).slice(-2);
+
+		expediente.value = stringExpediente;
+
+		if (saida.value.trim() === "") {
+			return true;
+		}
+
+		horaSaida = saida.valueAsNumber / 60000;
+
+		diferencaExpediente = horaSaida - minutoExpediente;
+
+		if (diferencaExpediente === 0) {
+			mensagem.innerHTML = "<h1>Expediente correto</h1><span>Você até pode fingir, mas não acredito!</span>";
+		} else if (diferencaExpediente > 0) {
+			mensagem.innerHTML = "<h1>Regime extraordinário</h1><span>Cuidado, não deixe seu banco alcançar mais de 40 horas positivas.</span>";
+		} else {
+			mensagem.innerHTML = "<h1>Saída antecipada</h1><span>Informe seus superiores.<br/>Não acumule mais de 10 horas negativas no seu banco.</span>";
+		}
+	};
 };
 
 window.onload = function () {
