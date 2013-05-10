@@ -79,6 +79,7 @@ PONTO.init = function () {
 	PONTO.dom.saida.addEventListener(tipoEvento, PONTO.atualiza, false);
 
 	PONTO.dom.salvar.addEventListener("click", PONTO.salvar, false);
+	PONTO.dom.dia.addEventListener("change", PONTO.recuperar, false);
 
 	evento = new Event(tipoEvento);
 
@@ -110,6 +111,26 @@ PONTO.salvar = function () {
 		"retorno": PONTO.dom.retorno.value,
 		"saida": PONTO.dom.saida.value,
 	});
+};
+
+PONTO.recuperar = function () {
+	PONTO.db.recuperar(PONTO.dom.dia.valueAsDate);
+};
+
+PONTO.recuperado = function (evento) {
+	var regime = evento.target.result;
+
+	if (regime === undefined || regime === null) {
+		PONTO.erro({ value: "Dia não encontrado" });
+		return;
+	}
+
+	PONTO.dom.entrada.value = regime["entrada"];
+	PONTO.dom.almoco.value = regime["almoco"];
+	PONTO.dom.retorno.value = regime["retorno"];
+	PONTO.dom.saida.value = regime["saida"];
+
+	PONTO.dom.carga.dispatchEvent(new Event("blur"));
 };
 
 PONTO.db = {
@@ -153,6 +174,25 @@ PONTO.db = {
 		requisicao.onsuccess = function (evento) {
 			console.log("Salvo com sucesso!");
 		};
+
+		requisicao.onerror = PONTO.erro;
+	},
+	recuperar: function (dia) {
+		var db = PONTO.db.instancia,
+			transacao,
+			armazenamento,
+			requisicao;
+
+		if (db === undefined) {
+			PONTO.erro({ value: "Sem banco de dados" });
+			return;
+		}
+
+		transacao = db.transaction(["regime"], "readwrite");
+		armazenamento = transacao.objectStore("regime");
+		requisicao = armazenamento.get(dia);
+
+		requisicao.onsuccess = PONTO.recuperado;
 
 		requisicao.onerror = PONTO.erro;
 	}
