@@ -81,3 +81,9 @@
 		border: 2px solid #dbdbdb;
 		background-color: #fbfbfb;
 	}
+
+	.calculaHora input::-webkit-clear-button
+	{
+		-webkit-appearance: none;
+		margin: 0;
+	}
